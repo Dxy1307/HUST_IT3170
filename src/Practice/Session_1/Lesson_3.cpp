@@ -1,49 +1,36 @@
 // Giá trị nhỏ nhất trong khoảng
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
-const int MaxN = 1 + 1e5;
 
-struct SegmentTree {
-    int n;
-    vector<int> tree;
+int arr[10000000];
+int tab[30][1000000];
 
-    SegmentTree(const vector<int> &arr) {
-        int n = arr.size();
-        tree.resize(4 * n);
-        build(arr, 0, 0, n - 1);
-    }
+void preCompute(int n, int k) {
+    for(int j = 1; j <= n; ++j)
+        tab[0][j] = arr[j];
 
-    void build(const vector<int> &arr, int index, int l, int r) {
-        if(l == r)
-            tree[index] = arr[l];
-        else {
-            int m = (l + r) / 2;
-            build(arr, 2 * index + 1, l, m);
-            build(arr, 2 * index + 2, m + 1, r);
-            tree[index] = min(tree[2 * index + 1], tree[2 * index + 2]);
-        }
-    }
+    for(int i = 1; i <= k; ++i)
+        for(int j = 1;  j + (1 << i) - 1 <= n; ++j)
+            tab[i][j] = min(tab[i - 1][j], tab[i - 1][j + (1 << (i - 1))]);
+}
 
-    int query(int index, int l, int r, int dl, int dr) {
-        if(dl > dr)
-            return MaxN;
-        if(l == dl && r == dr)
-            return tree[index];
-        int m = (l + r) / 2;
-        return min(query(2 * index + 1, l, m, dl, min(m, dr)), query(2 * index + 2, m + 1, r, max(dl, m + 1), dr));
-    }
-};
+int query(int l, int r) {
+    int k = (int)log2(r - l + 1);
+    return min(tab[k][l], tab[k][r - (1 << k) + 1]);
+}
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);cout.tie(NULL);
+
     int n;
     cin >> n;
     
-    vector<int> arr(n);
-    for(int i = 0; i < n; ++i)
+    for(int i = 1; i <= n; ++i)
         cin >> arr[i];
 
-    SegmentTree st(arr);
+    int k = (int)log2(n);
+    preCompute(n, k);
 
     int m;
     cin >> m;
@@ -52,7 +39,7 @@ int main() {
     for(int i = 0; i < m; ++i) {
         int a, b;
         cin >> a >> b;
-        Q += st.query(0, 0, n - 1, a, b);
+        Q += query(a + 1, b + 1);
     }
 
     cout << Q << endl;
