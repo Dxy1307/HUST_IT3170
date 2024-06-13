@@ -17,7 +17,7 @@
 **Chức năng**
 - Chức năng chính: Đi theo vật thể có khoảng cách tới cảm biến gần nhất với khoảng cách mỗi cảm biến đo được trong khoảng 10cm - 40cm, robot có thể dii chuyển theo vật thể chuyển động hướng thẳng, trái, phải (*không di chuyển vật thể quá nhanh*).
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/CPJYGL0XkC4&list=RDCPJYGL0XkC4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CPJYGL0XkC4" frameborder="0" allowfullscreen></iframe>
 
 - Test hoạt động của động cơ: có một nút bấm trên xe để thực hiện test, lần nhất đầu xe sẽ thực hiện tiến, lùi, quay trái, quay phải. Lần nhấn tiếp theo xe sẽ thực hiện bốc đầu 3 lần nhằm kiểm tra độ bền xe và linh kiện.
 - Chú ý: Chỉ sử dụng trên bề mặt rắn và phẳng.
